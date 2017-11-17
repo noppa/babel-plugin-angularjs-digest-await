@@ -4,6 +4,6 @@ const path = require('path');
 
 pluginTester({
   plugin,
-  fixtures: path.join(__dirname, 'fixtures'),
+  fixtures: path.join(__dirname, 'tests', 'fixtures'),
   pluginName: 'angularjs-digest-await'
 });
