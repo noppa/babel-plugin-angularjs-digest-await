@@ -2,7 +2,7 @@ module.exports.default = function(babel) {
   var t = babel.types;
 
   var defaultOptions = {
-    helperFunctionName: '__angularjsDigestAwait',
+    helperFunctionName: '$$await',
     moduleName: 'ng'
   };
   var options = defaultOptions;

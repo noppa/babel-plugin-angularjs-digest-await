@@ -1,12 +1,12 @@
 
-function __angularjsDigestAwait(v) {
-  var $q = __angularjsDigestAwait.$q || angular.injector("ng").get("$q");
+function $$await(v) {
+  var $q = $$await.$q || angular.injector("ng").get("$q");
   return $q.when(v);
 }
 
 async function foo(third) {
-  const first = await __angularjsDigestAwait(getData(async function (second) {
-    return await __angularjsDigestAwait(second);
+  const first = await $$await(getData(async function (second) {
+    return await $$await(second);
   }));
-  return await __angularjsDigestAwait(third);
+  return await $$await(third);
 }

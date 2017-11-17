@@ -1,8 +1,8 @@
-function __angularjsDigestAwait(v) {
-  var $q = __angularjsDigestAwait.$q || angular.injector("ng").get("$q");
+function $$await(v) {
+  var $q = $$await.$q || angular.injector("ng").get("$q");
   return $q.when(v);
 }
 
 async function foo() {
-  return await __angularjsDigestAwait(getData());
+  return await $$await(getData());
 }
