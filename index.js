@@ -1,9 +1,12 @@
-module.exports.default = function() {
+module.exports.default = function(babel) {
+  var t = babel.types;
 
   return {
     visitor: {
-      AwaitExpression: function(a, b) {
-        console.log('woop', a, b);
+      AwaitExpression: function(path) {
+        path.parentPath.replaceWith(
+          t.identifier('test')
+        );
       }
     }
   };

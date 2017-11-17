@@ -1,10 +1,9 @@
-const pluginTester = require('babel-plugin-tester').default;
-const plugin = require('./index.js');
+const pluginTester = require('babel-plugin-tester');
+const plugin = require('./index.js').default;
+const path = require('path');
 
 pluginTester({
   plugin,
-  snapshot: true,
-  tests: [
-    { code: 'hello', snapshot: true }
-  ]
+  fixtures: path.join(__dirname, 'fixtures'),
+  pluginName: 'angularjs-digest-await'
 });
