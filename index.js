@@ -6,6 +6,9 @@ module.exports.default = function(babel) {
     moduleName: 'ng'
   };
   var options = defaultOptions;
+  
+  var DATA_KEY = 'angularjsDigestAwait/';
+  var HELPERS_DECLARED_KEY = DATA_KEY + 'helpers-declared';
 
   /* eslint-disable */
   var buildHelperFunction = babel.template((function HELPER_FUNCTION_NAME(v) {
@@ -26,44 +29,38 @@ module.exports.default = function(babel) {
     return isGeneratedExpression;
   }
 
+  function getTopScope(path) {
+    var p = path, parent;
+    while((parent = p.parentPath)) {
+      p = parent;
+    }
+    return p;
+  }
+
   return {
     visitor: {
       AwaitExpression: function(path) {
         if (noWrappingNeeded(path)) return;
-        
-        var args = [
-          path.node.argument
-        ];
 
-        if (options.moduleName !== defaultOptions.moduleName) {
-          args.push(defaultOptions.moduleName);
-        }
-
-        var newPath = t.awaitExpression(
-          t.callExpression(t.identifier(options.helperFunctionName), args)
-        );
-
-        path.replaceWith(newPath);
-
-        if (!path.scope.hasBinding(options.helperFunctionName)) {
+        var topScope = getTopScope(path);
+        var helpersDeclared = topScope.getData(HELPERS_DECLARED_KEY);
+        if (!helpersDeclared) {
           var ast = buildHelperFunction({
             HELPER_FUNCTION_NAME: t.identifier(options.helperFunctionName),
             MODULE_NAME: t.stringLiteral(options.moduleName)
           });
-
-          // console.log(path.getFunctionParent().get('body'));
-          var parent = path.getFunctionParent();
-          var parentBody = parent.get('body');
-
-          if (t.isArrowFunctionExpression(parent) && !parentBody.isBlockStatement()) {
-            parent.set('body', t.blockStatement([
-              t.returnStatement(parentBody.node),
-              ast
-            ]))
-          } else {
-            parentBody.pushContainer('body', ast);
-          }
+          topScope.unshiftContainer('body', ast);
+          topScope.setData(HELPERS_DECLARED_KEY, true);
         }
+        
+        var newPath = t.awaitExpression(
+          t.callExpression(
+            t.identifier(options.helperFunctionName),
+            [path.node.argument]
+          )
+        );
+
+        path.replaceWith(newPath);
       }
     }
   };
