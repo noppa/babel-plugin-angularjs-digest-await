@@ -1,5 +1,5 @@
 function $$await(v) {
-  var $q = $$await.$q || ($$await.$q = angular.injector("ng").get("$q"));
+  var $q = $$await.$q || ($$await.$q = angular.injector(["ng"]).get("$q"));
   return $q.when(v);
 }
 
