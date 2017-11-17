@@ -12,7 +12,7 @@ module.exports.default = function(babel) {
 
   /* eslint-disable */
   var buildHelperFunction = babel.template((function HELPER_FUNCTION_NAME(v) {
-    var $q = HELPER_FUNCTION_NAME.$q || angular.injector(MODULE_NAME).get("$q");
+    var $q = HELPER_FUNCTION_NAME.$q || (HELPER_FUNCTION_NAME.$q = angular.injector(MODULE_NAME).get("$q"));
     return $q.when(v);
   }).toString());
   /* eslint-enable */
