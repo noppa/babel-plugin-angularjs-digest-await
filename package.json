@@ -12,9 +12,6 @@
   "devDependencies": {
     "babel-plugin-tester": "^4.0.0",
     "eslint": "^4.11.0",
-    "jest": "^21.2.1",
-    "lodash.capitalize": "^4.2.1",
-    "lodash.initial": "^4.1.1",
-    "lodash.words": "^4.2.0"
+    "jest": "^21.2.1"
   }
 }
