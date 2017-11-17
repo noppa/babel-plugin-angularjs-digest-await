@@ -1,0 +1,17 @@
+{
+  "name": "babel-plugin-angularjs-digest-await",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-plugin-tester": "^4.0.0",
+    "eslint": "^4.11.0",
+    "jest": "^21.2.1"
+  }
+}
