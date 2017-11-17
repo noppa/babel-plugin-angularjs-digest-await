@@ -43,6 +43,8 @@ module.exports.default = function(babel) {
           t.callExpression(t.identifier(options.helperFunctionName), args)
         );
 
+        path.replaceWith(newPath);
+
         if (!path.scope.hasBinding(options.helperFunctionName)) {
           var ast = buildHelperFunction({
             HELPER_FUNCTION_NAME: t.identifier(options.helperFunctionName),
@@ -50,10 +52,18 @@ module.exports.default = function(babel) {
           });
 
           // console.log(path.getFunctionParent().get('body'));
-          path.getFunctionParent().get('body').pushContainer('body', ast);
-        }
+          var parent = path.getFunctionParent();
+          var parentBody = parent.get('body');
 
-        path.replaceWith(newPath);
+          if (t.isArrowFunctionExpression(parent) && !parentBody.isBlockStatement()) {
+            parent.set('body', t.blockStatement([
+              t.returnStatement(parentBody.node),
+              ast
+            ]))
+          } else {
+            parentBody.pushContainer('body', ast);
+          }
+        }
       }
     }
   };
