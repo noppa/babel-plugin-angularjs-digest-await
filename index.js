@@ -3,7 +3,7 @@ module.exports = function(babel) {
 
   var defaultOptions = {
     helperFunctionName: '$$await',
-    $rootScope: 'angular.element(document.body).injector().get("$rootScope");'
+    $rootScope: 'angular.element(document.body).injector().get("$rootScope")'
   };
     
   // Key that marks that a $$await helper function has been
@@ -14,9 +14,12 @@ module.exports = function(babel) {
   // Function name and the expression to get $rootScope are configurable.
   /* eslint-disable */
   var buildHelperFunction = babel.template((function HELPER_FUNCTION_NAME(v) {
-    var $rootScope = HELPER_FUNCTION_NAME.$rootScope ||
-      (HELPER_FUNCTION_NAME.$rootScope = ROOT_SCOPE);
-    $rootScope.$$phase == null && $rootScope.$applyAsync();
+    var $rootScope;
+    try {
+      $rootScope = HELPER_FUNCTION_NAME.$rootScope ||
+        (HELPER_FUNCTION_NAME.$rootScope = ROOT_SCOPE);
+    } catch(e) {}
+    $rootScope && $rootScope.$$phase == null && $rootScope.$applyAsync();
     return v;
   }).toString());
   /* eslint-enable */

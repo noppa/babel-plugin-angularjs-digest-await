@@ -26,8 +26,13 @@ async function foo() {
 Output:
 ```javascript
 function $$await(v) {
-  var $rootScope = $$await.$rootScope || ($$await.$rootScope = angular.element(document.body).injector().get("$rootScope"));
-  $rootScope.$$phase == null && $rootScope.$applyAsync();
+  var $rootScope;
+
+  try {
+    $rootScope = $$await.$rootScope || ($$await.$rootScope = angular.element(document.body).injector().get("$rootScope"));
+  } catch (e) {}
+
+  $rootScope && $rootScope.$$phase == null && $rootScope.$applyAsync();
   return v;
 }
 
@@ -45,4 +50,4 @@ the top of the file.
 * `$rootScope`. JavaScript expression to get `$rootScope`, which is needed
 to invoke the `$digest` cycle. The provided value here will be evaluated
 as code when the build output is run.  
-   Default: `angular.element(document.body).injector().get("$rootScope");`.
+   Default: `angular.element(document.body).injector().get("$rootScope")`.
