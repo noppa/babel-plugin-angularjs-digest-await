@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "keywords": [],
-  "author": "Oskari Noppa <the.nobba@gmail.com>",
+  "author": "Oskari Noppa",
   "license": "MIT",
   "devDependencies": {
     "babel-plugin-tester": "^4.0.0",

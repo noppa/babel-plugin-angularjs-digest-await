@@ -1,5 +1,5 @@
 const pluginTester = require('babel-plugin-tester');
-const plugin = require('./index.js').default;
+const plugin = require('./index.js');
 const path = require('path');
 
 pluginTester({
