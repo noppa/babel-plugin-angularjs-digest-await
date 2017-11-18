@@ -1,3 +1,4 @@
 async function foo() {
-  return await getData();
+  const data = await getData();
+  console.log(data);
 }

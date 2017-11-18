@@ -5,5 +5,6 @@ function $$await(v) {
 }
 
 async function foo() {
-  return $$await((await getData()));
+  const data = $$await((await getData()));
+  console.log(data);
 }
