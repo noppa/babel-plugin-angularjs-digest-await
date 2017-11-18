@@ -4,7 +4,7 @@ Babel plugin for applying `$digest` loop after `await` expressions in AngularJS 
 
 ES7 `async` functions are supported by most modern browsers, so why transpile them to some
 obscure ES5-compatible monstrosity? At least in development, leaving `await` expressions
-intact will result in shorter compile-times and better debuggability.  
+intact will result in shorter compile-times and better debuggability.
 For AngularJS (v 1.x) users, though, this creates a problem because angular's `$digest` loop
 doesn't automatically run after `await` expressions.
 
@@ -12,7 +12,7 @@ This plugin makes *very* lightweight transformations to `await` expressions so t
 will be called after them.
 
 **Note:** The plugin is mainly intended for development purposes and does not make
-the code compatible with older browsers that don't natively support `async/await`.  
+the code compatible with older browsers that don't natively support `async/await`.
 Instead, it aims to keep changes to the original source as minimal as possible.
 
 Example input:
