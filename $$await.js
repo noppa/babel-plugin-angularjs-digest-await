@@ -1,8 +1,8 @@
 (function() {
+  var $rootScope;
   /* eslint-disable no-empty */
   /* globals window document angular */
   function $$await(v) {
-    var $rootScope = $$await.$rootScope;
     if (!$rootScope && typeof angular !== 'undefined') {
       var $el = angular.element(document.body);
       var $injector = $el.injector;
