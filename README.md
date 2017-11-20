@@ -25,29 +25,27 @@ async function foo() {
 
 Output:
 ```javascript
-function $$await(v) {
-  var $rootScope;
-
-  try {
-    $rootScope = $$await.$rootScope || ($$await.$rootScope = angular.element(document.body).injector().get("$rootScope"));
-  } catch (e) {}
-
-  $rootScope && $rootScope.$$phase == null && $rootScope.$applyAsync();
-  return v;
-}
-
 async function foo() {
   const data = $$await((await getData()));
   console.log(data);
 }
 ```
 
-### Available plugin options
+## Installation
+```
+npm i -D babel-plugin-angularjs-digest-await
+```
+.babelrc
+```json
+{ "plugins": ["angularjs-digest-await"] }
+```
+Include `node_modules/babel-plugin-angularjs-digest-await/$$await.js` to your build
+using whatever method you use to bundle source files (Webpack, Gulp, etc.) or roll
+your own global `$$await` helper function if the provided default solution doesn't
+work for your AngularJS app.
+
+## Available plugin options
 
 * `helperFunctionName`. Name of the helper function that gets added to
 the top of the file.  
    Default: `$$await`.
-* `$rootScope`. JavaScript expression to get `$rootScope`, which is needed
-to invoke the `$digest` cycle. The provided value here will be evaluated
-as code when the build output is run.  
-   Default: `angular.element(document.body).injector().get("$rootScope")`.
